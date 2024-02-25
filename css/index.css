@@ -395,16 +395,17 @@ main .right .recommended-communities h3 {
 }
 
 .login .row .content .line::after {
-    position: absolute;
+    /* content: "or"; */
+    /* position: absolute;
     top: 9rem;
-    right: calc(50% - 2rem);
-    color: var(--darkGrayColor);
-    background: var(--whiteColor);
-    padding: 1rem;
+    right: calc(50% - 2rem); */
+    /* color: var(--darkGrayColor);
+    background: var(--whiteColor); */
+    /* padding: 1rem;
     width: 2rem;
     height: 2rem;
     text-align: center;
-    z-index: 1;
+    z-index: 1; */
 }
 
 .login .row .content .login-right .btn {

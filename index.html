@@ -4,46 +4,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Look Lands</title>
   <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/general.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/index.css">
-  <!-- <link rel="stylesheet" href="register.css"> -->
-  <title>Look Lands</title>
+  <link rel="stylesheet" href="register.css">
+
   <script src="https://accounts.google.com/gsi/client" async></script>
   <script>
     // Credential response handler function
-    function handleCredentialResponse(response){
-        // Post JWT token to server-side
-        fetch("auth_init.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ request_type:'user_auth', credential: response.credential }),
-        })
+    function handleCredentialResponse(response) {
+      // Post JWT token to server-side
+      fetch("auth_init.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ request_type: 'user_auth', credential: response.credential }),
+      })
         .then(response => response.json())
         .then(data => {
-            if(data.status == 1){
-                let responsePayload = data.pdata;
-    
-                // Display the user account data
-                let profileHTML = '<h3>Welcome '+responsePayload.given_name+'! <a href="javascript:void(0);" onclick="signOut('+responsePayload.sub+');">Sign out</a></h3>';
-                profileHTML += '<img src="'+responsePayload.picture+'"/><p><b>Auth ID: </b>'+responsePayload.sub+'</p><p><b>Name: </b>'+responsePayload.name+'</p><p><b>Email: </b>'+responsePayload.email+'</p>';
-                document.getElementsByClassName("pro-data")[0].innerHTML = profileHTML;
-                
-                document.querySelector("#btnWrap").classList.add("hidden");
-                document.querySelector(".pro-data").classList.remove("hidden");
-            }
-        })
+          if (data.status == 1) {
+            let responsePayload = data.pdata;
+
+            // Display the user account data
+            let profileHTML = '<h3>Welcome ' + responsePayload.given_name + '! <a href="javascript:void(0);" onclick="signOut(' + responsePayload.sub + ');">Sign out</a></h3>';
+            profileHTML += '<img src="' + responsePayload.picture + '"/><p><b>Auth ID: </b>' + responsePayload.sub + '</p><p><b>Name: </b>' + responsePayload.name + '</p><p><b>Email: </b>' + responsePayload.email + '</p>';
+            document.getElementsByClassName("pro-data")[0].innerHTML = profileHTML;
+
+            document.querySelector("#btnWrap").classList.add("hidden");
+            // document.querySelector(".pro-data").classList.remove("hidden");
+          }})
         .catch(console.error);
     }
-    
+
     // Sign out the user
     function signOut(authID) {
-        document.getElementsByClassName("pro-data")[0].innerHTML = '';
-        document.querySelector("#btnWrap").classList.remove("hidden");
-        document.querySelector(".pro-data").classList.add("hidden");
+      document.getElementsByClassName("pro-data")[0].innerHTML = '';
+      document.querySelector("#btnWrap").classList.remove("hidden");
+      document.querySelector(".pro-data").classList.add("hidden");
     }    
-    </script>
+  </script>
+
 </head>
 
 <body>
@@ -440,42 +441,46 @@
           </div>
           <div class="line"></div>
           <div class="login-right">
-            <a href="#" class="btn"><i class="fa-brands fa-square-facebook"></i>
-              <span>Login with Facebook</span></a>
+
             <div id="btnWrap">
-              <div id="g_id_onload" data-client_id="CLIENT_ID.apps.googleusercontent.com" data-context="signin"
-                data-ux_mode="popup" data-callback="handleCredentialResponse" data-auto_prompt="false">
+              <!-- Sign In With Google button with HTML data attributes API -->
+              <div id="g_id_onload"
+                data-client_id="659787406260-vd8pmtpem2csjhbbdj9ib9e1l3kjn410.apps.googleusercontent.com"
+                data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse"
+                data-auto_prompt="false">
               </div>
 
               <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline"
                 data-text="signin_with" data-size="large" data-logo_alignment="left">
               </div>
+
+              <!-- Display the user's profile info -->
+              <div class=".pro-data hidden"></div>
             </div>
           </div>
-        </div>
-        <div class="bottom">
-          <h4></h4>
+          <div class="bottom">
+            <h4></h4>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script>
-    const join = document.querySelector(".join"),
-      overlay = document.querySelector(".overlay"),
-      closeBtn = document.querySelector(".overlay .close");
+    <script>
+      const join = document.querySelector(".join"),
+        overlay = document.querySelector(".overlay"),
+        closeBtn = document.querySelector(".overlay .close");
 
-    join.addEventListener("click", () => {
-      overlay.classList.add("active");
-    });
+      join.addEventListener("click", () => {
+        overlay.classList.add("active");
+      });
 
-    closeBtn.addEventListener("click", () => {
-      overlay.classList.remove("active");
-    });
-  </script>
+      closeBtn.addEventListener("click", () => {
+        overlay.classList.remove("active");
+      });
+    </script>
 
-  <script src="https://kit.fontawesome.com/9e5ba2e3f5.js" crossorigin="anonymous"></script>
-  <script src="index.js"></script>
+    <script src="https://kit.fontawesome.com/9e5ba2e3f5.js" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
 
 </body>
 

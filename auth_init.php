@@ -23,19 +23,19 @@ if(!empty($jsonObj->request_type) && $jsonObj->request_type == 'user_auth'){
         $first_name = !empty($responsePayload->given_name) ? $responsePayload->given_name : '' ;
         $last_name = !empty($responsePayload->family_name) ? $responsePayload->family_name : '' ;
         $email = !empty($responsePayload->email) ? $responsePayload->email : '';
-        $avatar = !empty($responsePayload->avatar) ? $responsePayload->avatar : '';
+        $picture = !empty($responsePayload->picture) ? $responsePayload->picture : '';
 
         //Check whether the user data already exist in the database
         $query = "SELECT * FROM users WHERE oauth_provider = '".$oauth_provider."' AND oauth_uid = '".$oauth_uid."'" ;
         $result = $db->query($query);
         if($result->num_rows > 0){
             //Update user data if already exists
-            $query = "UPDATE users SET first_name = '".$first_name."', last_name = '".$last_name."',email = '".$email."',avatar = '".$avatar."',update_at = NOW() WHERE oauth_provider = '".$oauth_provider."' AND oauth_uid = '".$oauth_uid."'";
+            $query = "UPDATE users SET first_name = '".$first_name."', last_name = '".$last_name."',email = '".$email."',picture = '".$picture."',update_at = NOW() WHERE oauth_provider = '".$oauth_provider."' AND oauth_uid = '".$oauth_uid."'";
             $update_at = $db->query($query);
         }
         else{
             //Insert user data
-            $query = "INSERT INTO users VALUES (NULL, '".$oauth_provider."','".$oauth_uid."','".$first_name."','".$last_name."','".$email."','".$avatar."',NOW(),NOW())";
+            $query = "INSERT INTO users VALUES (NULL, '".$oauth_provider."','".$oauth_uid."','".$first_name."','".$last_name."','".$email."','".$picture."',NOW(),NOW())";
             $insert = $db->query($query);
 
         }
